@@ -1,3 +1,5 @@
+package src;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,8 +16,12 @@ public class DrawPanel extends JPanel{
     // To keep track of a single car's position
     Point volvoPoint = new Point();
 
+
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
+
+    BufferedImage scaniaImage;
+    Point scaniaPoint = new Point();
 
     // TODO: Make this general for all cars
     void moveit(int x, int y){
@@ -34,9 +40,10 @@ public class DrawPanel extends JPanel{
             // everything is in the same main folder.
             // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
 
-            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
+            // Remember to right-click src New -> Package -> name: pics -> MOVE *.jpg to pics.
             // if you are starting in IntelliJ.
             volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+            scaniaImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
             volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
         } catch (IOException ex)
         {
