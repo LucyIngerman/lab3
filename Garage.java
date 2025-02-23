@@ -5,7 +5,7 @@ public class Garage<T>{
     int currentCarsAmount = 0;
     private T[] cars;
 
-
+    // Test
     @SuppressWarnings("unchecked")
     public Garage(int capacityInput){
         carCapacity = capacityInput;
