@@ -52,9 +52,20 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Car car : cars) {
+                double[] previousPoint = car.getPosition();
+
                 car.move();
                 int x = (int) Math.round(car.getPosition()[0]);
                 int y = (int) Math.round(car.getPosition()[1]);
+                System.out.println(x);
+                // System.out.println(y);
+                System.out.println(car.getDirection());
+                if (x > 400 || x < 0){
+                    car.setPosition(previousPoint[0], previousPoint[1]);
+                    car.reverseDirection();
+
+                }
+
                 frame.drawPanel.moveit(x, y);
                 // System.out.printf("X: %s, Y: %s", x, y);
                 // repaint() calls the paintComponent method of the panel

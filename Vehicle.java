@@ -27,25 +27,53 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
         switch(direction){
             case 'N':
                 y += currentSpeed;
+                break;
             case 'W':
                 x -= currentSpeed;
+                break;
             case 'S':
                 y -= currentSpeed;
+                break;
             case 'E':
                 x += currentSpeed;
+                break;
         }
     }
+
+    public void reverseDirection(){
+        switch(direction){
+            case 'N':
+                direction = 'S';
+                break;
+            case 'S':
+                direction = 'N';
+                break;
+            case 'W':
+                direction = 'E';
+                break;
+            case 'E':
+                direction = 'W';
+                break;
+            default:
+                direction = 'N';
+        }
+    }
+
 
     public void turnLeft(){
         switch(direction){
             case 'N':
                 direction = 'W';
+                break;
             case 'W':
                 direction = 'S';
+                break;
             case 'S':
                 direction = 'E';
+                break;
             case 'E':
                 direction = 'N';
+                break;
             default:
                 direction = 'N';
         }
@@ -54,12 +82,16 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
         switch(direction){
             case 'N':
                 direction = 'E';
+                break;
             case 'E':
                 direction = 'S';
+                break;
             case 'S':
                 direction = 'W';
+                break;
             case 'W':
                 direction = 'N';
+                break;
             default:
                 direction = 'N';
         }
@@ -67,11 +99,12 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
 
 
     public double[] getPosition(){
-        
         return new double[]{x, y};
     }
 
-    
+    public char getDirection(){
+        return direction;
+    }
 
     public void setPosition(double xPos, double yPos){
         x = xPos;
