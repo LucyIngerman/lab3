@@ -3,7 +3,7 @@ package src;
 import java.awt.*;
 
 
-public class Scania extends tipperTruck{
+public class Scania extends TipperTruck{
 
     public Scania(int NrDoorsInput, double enginePowerInput, Color colorInput, double maxWeightInput,
                   int dumpBoxMaxAngleInput, double xInput, double yInput){

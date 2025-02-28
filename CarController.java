@@ -44,7 +44,7 @@ public class CarController {
         // cc.cars.add(new Volvo240());
         Volvo240 volvo = new Volvo240(4, 70, Color.red, 4, 30, 2, 3, 0, 300);
         Saab95 saab = new Saab95(4, 70, Color.YELLOW, 4, 30, 2, 3, 0, 0);
-        Scania scania = new Scania(4, 100, Color.BLUE, 200, 50, 0, 150);
+        Scania scania = new Scania(4, 100, Color.BLUE, 200, 60, 0, 150);
         cc.cars.add(volvo);
         cc.cars.add(saab);
         cc.trucks.add(scania);
@@ -138,6 +138,7 @@ public class CarController {
         for (Car car: cars){
             if (car instanceof Saab95 saab){
                 saab.setTurboOn();
+
             }
         }
     }
@@ -152,22 +153,19 @@ public class CarController {
 
     void raiseDumpBox(){
         for (Truck truck: trucks){
-            if (truck instanceof tipperTruck tipperTruck){
-                tipperTruck.raiseDumpBox(5);
+            if (truck instanceof Scania scania){
+                scania.raiseDumpBox(5);
             }
         }
     }
 
     void lowerDumpBox(){
         for (Truck truck: trucks){
-            if (truck instanceof tipperTruck tipperTruck){
-                tipperTruck.lowerDumpBox(5);
+            if (truck instanceof Scania scania){
+                scania.lowerDumpBox(5);
             }
         }
     }
-
-
-
 
     void moveLogic(Vehicle vehicle){
         double[] previousPoint = vehicle.getPosition();
@@ -178,10 +176,13 @@ public class CarController {
         if (x > 700 || x < 0){
             vehicle.setPosition(previousPoint[0], previousPoint[1]);
             vehicle.reverseDirection();
+            vehicle.setPosition(previousPoint[0], previousPoint[1]);
         }
         if (y > 500 || y < 0){
             vehicle.setPosition(previousPoint[0], previousPoint[1]);
             vehicle.reverseDirection();
+            vehicle.setPosition(previousPoint[0], previousPoint[1]);
+
         }
     }
 

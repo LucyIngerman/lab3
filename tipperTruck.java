@@ -2,12 +2,12 @@ package src;
 
 import java.awt.*;
 
-public abstract class tipperTruck extends Truck{
+public abstract class TipperTruck extends Truck{
     private final int dumpBoxMaxAngle;
     private int currentdumpBoxAngle = 0;
 
 
-    public tipperTruck(int NrDoorsInput, double enginePowerInput, Color colorInput, double maxWeightInput,
+    public TipperTruck(int NrDoorsInput, double enginePowerInput, Color colorInput, double maxWeightInput,
                        int dumpBoxMaxAngleInput, double xInput, double yInput){
         super(NrDoorsInput, enginePowerInput, colorInput, maxWeightInput, xInput, yInput);
         dumpBoxMaxAngle = dumpBoxMaxAngleInput;
@@ -54,11 +54,6 @@ public abstract class tipperTruck extends Truck{
 
     public void lowerDumpBox(int inputAngle){
 
-
-
-        if (inputAngle > 0){
-            inputAngle = 0;
-        }
 
         if (currentdumpBoxAngle - inputAngle < 0){
             currentdumpBoxAngle = 0;
