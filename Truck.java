@@ -8,8 +8,8 @@ public abstract class Truck extends Vehicle{
     private double maxWeight;
 
 
-    public Truck(int NrDoorsInput, double enginePowerInput, Color colorInput, double maxWeightInput){
-        super(NrDoorsInput, enginePowerInput, colorInput);
+    public Truck(int NrDoorsInput, double enginePowerInput, Color colorInput, double maxWeightInput, double xInput, double yInput){
+        super(NrDoorsInput, enginePowerInput, colorInput, xInput, yInput);
         maxWeight = maxWeightInput;
     }
 

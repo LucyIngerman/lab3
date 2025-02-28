@@ -1,6 +1,9 @@
 package src;
 
+import org.w3c.dom.css.Rect;
+
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 public abstract class Vehicle implements IMovable{       // Why extend from movable?
@@ -10,15 +13,18 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
     private String modelName; // The car model name
     private double currentSpeed = 0;
     private char direction = 'E';
-    private double x = 0;
-    private double y = 0;
+    private double x;
+    private double y;
     private boolean engineOn = false;
+    private BufferedImage image;
 
 
-    public Vehicle(int NrDoorsInput, double enginePowerInput, Color colorInput){
+    public Vehicle(int NrDoorsInput, double enginePowerInput, Color colorInput, double xInput, double yInput){
         nrDoors = NrDoorsInput;
         enginePower = enginePowerInput;
         color = colorInput;
+        x = xInput;
+        y = yInput;
     }
 
 
@@ -133,7 +139,6 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
     public void startEngine(){
 	    if (!engineOn){
             engineOn = true;
-            System.out.printf("GOGOGO");
         }
     }
 
@@ -147,6 +152,8 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
     public boolean getEngineStatus(){
         return engineOn;
     }
+
+    public abstract Rectangle getBounds();
 
 
     public abstract double speedFactor();
@@ -163,8 +170,6 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
         if (!engineOn){
             return;
         }
-        System.out.println(amount);
-
 
         if  (amount >= 0 && amount <= 1){
             incrementSpeed(amount);
@@ -172,7 +177,6 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
     }
 
     public void brake(double amount){
-        System.out.println(amount);
 
         if  (amount >= 0 && amount <= 1){
             decrementSpeed(amount);

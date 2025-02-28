@@ -1,9 +1,14 @@
 package src;
 
+
+import java.awt.*;
+
 public class Garage<T>{
     int carCapacity;
     int currentCarsAmount = 0;
     private T[] cars;
+    private final Rectangle bounds = new Rectangle(300, 300, 101, 96);
+
 
     // Test
     @SuppressWarnings("unchecked")
@@ -45,4 +50,9 @@ public class Garage<T>{
         }
         return false;
     }
+
+    public boolean isColliding(Vehicle vehicle) {
+        return bounds.intersects(vehicle.getBounds()); // Check if car and workshop overlap
+    }
+
 }

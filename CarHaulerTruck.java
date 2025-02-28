@@ -11,8 +11,8 @@ public abstract class CarHaulerTruck extends Truck{
 
 
     public CarHaulerTruck(int NrDoorsInput, double enginePowerInput, Color colorInput, double maxWeightInput,
-                          int carCapacityInput, double truckWidthInput){
-        super(NrDoorsInput, enginePowerInput, colorInput, maxWeightInput);
+                          int carCapacityInput, double truckWidthInput, double xInput, double yInput){
+        super(NrDoorsInput, enginePowerInput, colorInput, maxWeightInput, xInput, yInput);
         carCapacity = carCapacityInput;
         truckWidth = truckWidthInput;
 

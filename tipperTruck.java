@@ -8,12 +8,13 @@ public abstract class tipperTruck extends Truck{
 
 
     public tipperTruck(int NrDoorsInput, double enginePowerInput, Color colorInput, double maxWeightInput,
-                       int dumpBoxMaxAngleInput){
-        super(NrDoorsInput, enginePowerInput, colorInput, maxWeightInput);
+                       int dumpBoxMaxAngleInput, double xInput, double yInput){
+        super(NrDoorsInput, enginePowerInput, colorInput, maxWeightInput, xInput, yInput);
         dumpBoxMaxAngle = dumpBoxMaxAngleInput;
     }
 
-    @Override public void startEngine(){
+    @Override
+    public void startEngine(){
         if (getCurrentdumpBoxAngle() > 0){
             return;
         }

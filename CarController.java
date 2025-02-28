@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -29,7 +30,11 @@ public class CarController {
     CarView frame;
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<>();
-    
+    ArrayList<Truck> trucks = new ArrayList<>();
+    Garage<Volvo240> garage = new Garage<>(1);
+
+    ArrayList<Car> carsToRemove = new ArrayList<>();
+
     //methods:
 
     public static void main(String[] args) {
@@ -37,8 +42,12 @@ public class CarController {
         CarController cc = new CarController();
 
         // cc.cars.add(new Volvo240());
-        Volvo240 volvo = new Volvo240(4, 70, Color.red, 4, 30, 1.4);
+        Volvo240 volvo = new Volvo240(4, 70, Color.red, 4, 30, 2, 3, 0, 300);
+        Saab95 saab = new Saab95(4, 70, Color.YELLOW, 4, 30, 2, 3, 0, 0);
+        Scania scania = new Scania(4, 100, Color.BLUE, 200, 50, 0, 150);
         cc.cars.add(volvo);
+        cc.cars.add(saab);
+        cc.trucks.add(scania);
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
@@ -51,34 +60,47 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            for (Car car : carsToRemove){
+                cars.remove(car);
+            }
             for (Car car : cars) {
-                double[] previousPoint = car.getPosition();
+                moveLogic(car);
+                if (garage.isColliding(car) ){
+                    if (car instanceof Volvo240 volvo){
+                        garage.addCar(volvo);
+                        carsToRemove.add(car);
+                    }
 
-                car.move();
-                int x = (int) Math.round(car.getPosition()[0]);
-                int y = (int) Math.round(car.getPosition()[1]);
-                System.out.println(x);
-                // System.out.println(y);
-                System.out.println(car.getDirection());
-                if (x > 400 || x < 0){
-                    car.setPosition(previousPoint[0], previousPoint[1]);
-                    car.reverseDirection();
+                    else{
+                        car.reverseDirection();
 
+                    }
                 }
 
-                frame.drawPanel.moveit(x, y);
-                // System.out.printf("X: %s, Y: %s", x, y);
-                // repaint() calls the paintComponent method of the panel
+                frame.drawPanel.currentVehiclePositions(cars, trucks);
+                frame.drawPanel.repaint();
+
+            }
+            for (Truck truck : trucks){
+                moveLogic(truck);
+                if (garage.isColliding(truck)){
+                    truck.reverseDirection();
+                }
+                frame.drawPanel.currentVehiclePositions(cars, trucks);
                 frame.drawPanel.repaint();
             }
+
         }
     }
 
     // Calls the gas method for each car once
     void gas(int amount) {
-        double gas = ((double) amount) / 100;
+        double gasAmount = ((double) amount) / 100;
        for (Car car : cars){
-            car.gas(gas);
+            car.gas(gasAmount);
+        }
+        for (Truck truck : trucks){
+            truck.gas(gasAmount);
         }
     }
 
@@ -86,13 +108,20 @@ public class CarController {
         for(Car car: cars){
             car.startEngine();
         }
+        for(Truck truck: trucks){
+            truck.startEngine();
+        }
     }
 
     void brakeCar(double amount){
-        double brake = ((double) amount) / 100;
+        double brakeAmount = ((double) amount) / 100;
 
         for(Car car: cars){
-            car.brake(brake);
+            car.brake(brakeAmount);
+        }
+
+        for(Truck truck: trucks){
+            truck.brake(brakeAmount);
         }
     }
 
@@ -100,6 +129,61 @@ public class CarController {
         for (Car car: cars){
             car.stopEngine();
         }
+        for(Truck truck: trucks){
+            truck.stopEngine();
+        }
     }
+
+    void turboOn(){
+        for (Car car: cars){
+            if (car instanceof Saab95 saab){
+                saab.setTurboOn();
+            }
+        }
+    }
+
+    void turboOff(){
+        for (Car car: cars){
+            if (car instanceof Saab95 saab){
+                saab.setTurboOff();
+            }
+        }
+    }
+
+    void raiseDumpBox(){
+        for (Truck truck: trucks){
+            if (truck instanceof tipperTruck tipperTruck){
+                tipperTruck.raiseDumpBox(5);
+            }
+        }
+    }
+
+    void lowerDumpBox(){
+        for (Truck truck: trucks){
+            if (truck instanceof tipperTruck tipperTruck){
+                tipperTruck.lowerDumpBox(5);
+            }
+        }
+    }
+
+
+
+
+    void moveLogic(Vehicle vehicle){
+        double[] previousPoint = vehicle.getPosition();
+
+        vehicle.move();
+        int x = (int) Math.round(vehicle.getPosition()[0]);
+        int y = (int) Math.round(vehicle.getPosition()[1]);
+        if (x > 700 || x < 0){
+            vehicle.setPosition(previousPoint[0], previousPoint[1]);
+            vehicle.reverseDirection();
+        }
+        if (y > 500 || y < 0){
+            vehicle.setPosition(previousPoint[0], previousPoint[1]);
+            vehicle.reverseDirection();
+        }
+    }
+
 }
 

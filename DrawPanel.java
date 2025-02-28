@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -16,6 +17,8 @@ public class DrawPanel extends JPanel{
     // To keep track of a single car's position
     Point volvoPoint = new Point();
 
+    ArrayList<Car> cars = new ArrayList<>();
+    ArrayList<Truck> trucks = new ArrayList<>();
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
@@ -23,10 +26,16 @@ public class DrawPanel extends JPanel{
     BufferedImage scaniaImage;
     Point scaniaPoint = new Point();
 
+    BufferedImage saabImage;
     // TODO: Make this general for all cars
     void moveit(int x, int y){
         volvoPoint.x = x;
         volvoPoint.y = y;
+    }
+
+    void currentVehiclePositions(ArrayList<Car> currentCars, ArrayList<Truck> currentTrucks){
+        cars = currentCars;
+        trucks = currentTrucks;
     }
 
     // Initializes the panel and reads the images
@@ -45,10 +54,15 @@ public class DrawPanel extends JPanel{
             volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
             scaniaImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
             volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+            saabImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/saab95.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();
         }
+
+    }
+
+    public void removeItem(){
 
     }
 
@@ -57,7 +71,30 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+
+        for (Car car: cars){
+            double[] position = car.getPosition();
+            BufferedImage image = null;
+
+            if (car instanceof Volvo240){
+                image = volvoImage;
+            }
+            if (car instanceof Saab95){
+                image = saabImage;
+            }
+
+            g.drawImage(image, (int) position[0], (int) position[1], null); // see javadoc for more info on the parameters
+        }
+        for (Truck truck: trucks){
+            double[] position = truck.getPosition();
+            BufferedImage image = null;
+
+            if (truck instanceof Scania){
+                image = scaniaImage;
+            }
+            g.drawImage(image, (int) position[0], (int) position[1], null); // see javadoc for more info on the parameters
+        }
+
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
 }
