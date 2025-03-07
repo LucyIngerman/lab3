@@ -167,7 +167,7 @@ public class CarView extends JFrame{
         this.pack();
 
         // Get the computer screen resolution
-        // Dimension dim = Toolkit.getDefaultToolkit().getScreenSize(Andra bilar ska inte lastas (välj själva hur ni vill hantera detta).);
+        // Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         // Center the frame
         // this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         // Make the frame visible

@@ -2,7 +2,6 @@ package src;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
@@ -15,7 +14,6 @@ public class DrawPanel extends JPanel{
     // Just a single image, TODO: Generalize
     BufferedImage volvoImage;
     // To keep track of a single car's position
-    Point volvoPoint = new Point();
 
     ArrayList<Car> cars = new ArrayList<>();
     ArrayList<Truck> trucks = new ArrayList<>();
@@ -24,14 +22,9 @@ public class DrawPanel extends JPanel{
     Point volvoWorkshopPoint = new Point(300,300);
 
     BufferedImage scaniaImage;
-    Point scaniaPoint = new Point();
 
     BufferedImage saabImage;
-    // TODO: Make this general for all cars
-    void moveit(int x, int y){
-        volvoPoint.x = x;
-        volvoPoint.y = y;
-    }
+
 
     void currentVehiclePositions(ArrayList<Car> currentCars, ArrayList<Truck> currentTrucks){
         cars = currentCars;
@@ -62,9 +55,6 @@ public class DrawPanel extends JPanel{
 
     }
 
-    public void removeItem(){
-
-    }
 
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.

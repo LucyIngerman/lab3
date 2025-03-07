@@ -1,15 +1,12 @@
 package src;
 
-import src.Car;
-import src.CarView;
-import src.Volvo240;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -114,7 +111,7 @@ public class CarController {
     }
 
     void brakeCar(double amount){
-        double brakeAmount = ((double) amount) / 100;
+        double brakeAmount = amount / 100;
 
         for(Car car: cars){
             car.brake(brakeAmount);
@@ -173,7 +170,7 @@ public class CarController {
         vehicle.move();
         int x = (int) Math.round(vehicle.getPosition()[0]);
         int y = (int) Math.round(vehicle.getPosition()[1]);
-        if (x > 700 || x < 0){
+        if (x > 690 || x < 0){
             vehicle.setPosition(previousPoint[0], previousPoint[1]);
             vehicle.reverseDirection();
             vehicle.setPosition(previousPoint[0], previousPoint[1]);

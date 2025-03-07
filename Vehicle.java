@@ -1,6 +1,5 @@
 package src;
 
-import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,7 +15,6 @@ public abstract class Vehicle implements IMovable{       // Why extend from mova
     private double x;
     private double y;
     private boolean engineOn = false;
-    private BufferedImage image;
 
 
     public Vehicle(int NrDoorsInput, double enginePowerInput, Color colorInput, double xInput, double yInput){
